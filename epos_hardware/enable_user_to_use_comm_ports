@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo ""
+echo "This script adds the user to the dialout group so that he can use the communication ports"
+echo ""
+
+sudo adduser $USER dialout
+
+echo ""
+echo "Done"
+echo ""
