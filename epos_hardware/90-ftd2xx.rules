@@ -1,1 +1,1 @@
-SUBSYSTEM=="usb|usb_device", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="a8b0", GROUP="dialout", MODE="666", SYMLINK+="ftd2xx%n"
+ACTION=="add", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", SYMLINK+="ttyS32", GROUP="dialout"
