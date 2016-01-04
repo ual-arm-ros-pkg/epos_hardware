@@ -1,7 +1,7 @@
 <launch>
-  <param name="robot_description" textfile="$(find epos_gripper_ctrl)/launch/example.urdf" />
+  <param name="robot_description" textfile="$(find epos_hardware)/launch/example.urdf" />
   <node name="epos_hardware" pkg="epos_hardware" type="epos_hardware_node" args="my_joint_actuator">
-    <rosparam command="load" file="$(find epos_gripper_ctrl)/launch/example.yaml" />
+    <rosparam command="load" file="$(find epos_hardware)/launch/example.yaml" />
   </node>
 
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
