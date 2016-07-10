@@ -475,7 +475,9 @@ bool Epos::init() {
     unsigned int error_number;
     if(!VCS_GetDeviceErrorCode(node_handle_->device_handle->ptr, node_handle_->node_id, i, &error_number, &error_code))
       return false;
-    ROS_WARN_STREAM("EPOS Device Error: 0x" << std::hex << error_number);
+	std::string error_str;
+	GetErrorInfo(error_number, &error_str);
+	ROS_WARN_STREAM("EPOS Device Error: 0x" << std::hex << error_number <<", error msg: '" << error_str << "'" );
   }
 
   bool clear_faults;
