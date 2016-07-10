@@ -550,13 +550,12 @@ void Epos::write() {
     if(isnan(velocity_cmd_))
       return;
     int cmd = (int)velocity_cmd_;
-    if(max_profile_velocity_ >= 0) {
+	if(max_profile_velocity_ >= 0) {
       if(cmd < -max_profile_velocity_)
 	cmd = -max_profile_velocity_;
       if(cmd > max_profile_velocity_)
 	cmd = max_profile_velocity_;
     }
-
     if(cmd == 0 && halt_velocity_) {
       VCS_HaltVelocityMovement(node_handle_->device_handle->ptr, node_handle_->node_id, &error_code);
     }
@@ -567,7 +566,8 @@ void Epos::write() {
   else if(operation_mode_ == PROFILE_POSITION_MODE) {
     if(isnan(position_cmd_))
       return;
-    VCS_MoveToPosition(node_handle_->device_handle->ptr, node_handle_->node_id, (int)position_cmd_, true, true, &error_code);
+	ROS_INFO("Epos::write: PROFILE_POSITION_MODE position_cmd_=%f",position_cmd_);
+	VCS_MoveToPosition(node_handle_->device_handle->ptr, node_handle_->node_id, (int)position_cmd_, true, true, &error_code);
   }
 }
 
@@ -612,6 +612,11 @@ void Epos::buildMotorStatus(diagnostic_updater::DiagnosticStatusWrapper &stat) {
 	if(VCS_GetDeviceErrorCode(node_handle_->device_handle->ptr, node_handle_->node_id, i, &error_number, &error_code)) {
 	  std::stringstream error_msg;
 	  error_msg << "EPOS Device Error: 0x" << std::hex << error_number;
+
+	  std::string error_str;
+	  GetErrorInfo(error_number, &error_str);
+	  error_msg << "Error msg: '" << error_str << "'";
+
 	  stat.mergeSummary(diagnostic_msgs::DiagnosticStatus::ERROR, error_msg.str());
 	}
 	else {
