@@ -235,6 +235,7 @@ bool Epos::init() {
       if(ec_motor) {
 	nominal_current_ = nominal_current;
 	max_current_ = max_output_current;
+	ROS_INFO("number_of_pole_pairs:%d\n",number_of_pole_pairs);
 	VCS(SetEcMotorParameter,
 	    (int)(1000 * nominal_current), // A -> mA
 	    (int)(1000 * max_output_current), // A -> mA
